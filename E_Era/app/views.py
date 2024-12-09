@@ -58,8 +58,17 @@ def register(req):
     else:
         return render(req,'register.html')
 
-def shop_home(req):
-    return render(req,'shop/shop_home.html')
+
 
 def user_home(req):
     return render(req,'user/user_home.html')
+
+
+def shop_home(req):
+    return render(req,'shop/shop_home.html')
+
+def add_pro(req):
+    return render(req,'shop/add_product.html')
+
+def view_booking(req):
+    return render(req,'shop/view_bookings.html')
