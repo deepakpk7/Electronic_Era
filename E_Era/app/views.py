@@ -68,7 +68,31 @@ def shop_home(req):
     return render(req,'shop/shop_home.html')
 
 def add_pro(req):
-    return render(req,'shop/add_product.html')
+    if 'shop' in req.session:
+        if req.method=='POST':
+            pid=req.POST['pid']
+            name=req.POST['name']
+            specifications=req.POST['specifications']
+            price=req.POST['price']
+            offer_price=req.POST['offer_price']
+            brand=req.POST['brand']
+            color=req.POST['color']
+            highlights=req.POST['highlights']
+            warranty=req.POST['warranty']
+            services=req.POST['services']
+            stock=req.POST['stock']
+            img=req.FILES['img']
+            product = Product(pid=pid,name=name,specifications=specifications,
+                price=price,offer_price=offer_price,brand=brand,color=color,
+                highlights=highlights,warranty=warranty,services=services,
+                stock=stock,img=img
+                )
+            product.save()  
+            return redirect(shop_home)
+        else:
+            return render(req,'shop/add_product.html')
+    else:
+        return redirect(s_login)
 
 def view_booking(req):
     return render(req,'shop/view_bookings.html')
