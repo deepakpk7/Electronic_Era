@@ -61,7 +61,11 @@ def register(req):
 
 
 def user_home(req):
-    return render(req,'user/user_home.html')
+    if 'user' in req.session:
+        data=Product.objects.all()
+        return render(req,'user/user_home.html',{'products':data})
+    else:
+        return redirect(s_login)
 
 
 def shop_home(req):
@@ -100,7 +104,7 @@ def add_pro(req):
     
 def edit_product(req,pid):
     if req.method=='POST':
-        pid=req.POST['pid']
+        # pid=req.POST['pid']
         name=req.POST['name']
         specifications=req.POST['specifications']
         price=req.POST['price']
@@ -111,12 +115,12 @@ def edit_product(req,pid):
         warranty=req.POST['warranty']
         services=req.POST['services']
         stock=req.POST['stock']
-        img=req.FILES['img']
+        img=req.FILES.get('img')
         if img:
             Product.objects.filter(pk=pid).update(pid=pid,name=name,specifications=specifications,
                 price=price,offer_price=offer_price,brand=brand,color=color,
                 highlights=highlights,warranty=warranty,services=services,
-                stock=stock,img=img)
+                stock=stock)
             data=Product.objects.get(pk=pid)
             data.img=img
             data.save()
@@ -124,12 +128,19 @@ def edit_product(req,pid):
             Product.objects.filter(pk=pid).update(pid=pid,name=name,specifications=specifications,
                 price=price,offer_price=offer_price,brand=brand,color=color,
                 highlights=highlights,warranty=warranty,services=services,
-                stock=stock,img=img)
+                stock=stock)
         return redirect(shop_home)
     else:
         data=Product.objects.get(pk=pid)
         return render(req,'shop/edit.html',{'data':data})
 
+def delete_product(req,pid):
+    data=Product.objects.get(pk=pid)
+    file=data.img.url
+    file=file.split('/')[-1]
+    os.remove('media/'+file)
+    data.delete()
+    return redirect(shop_home)
 
 def view_booking(req):
     return render(req,'shop/view_bookings.html')

@@ -93,23 +93,23 @@
         </div>
         <div class="col-12">
             <label for="highlights" class="form-label">Highlights</label>
-            <textarea id="highlights" name="highlights" class="form-control" rows="3" placeholder="Enter Highlights" required></textarea>
+            <textarea id="highlights" name="highlights" class="form-control" rows="3" placeholder="Enter Highlights" required>{{data.highlights}}</textarea>
         </div>
         <div class="col-md-6">
             <label for="warranty" class="form-label">Warranty</label>
-            <textarea id="warranty" name="warranty" class="form-control" rows="2" placeholder="Enter Warranty" required></textarea>
+            <textarea id="warranty" name="warranty" class="form-control" rows="2" placeholder="Enter Warranty" required>{{data.warranty}}</textarea>
         </div>
         <div class="col-md-6">
             <label for="services" class="form-label">Services</label>
-            <textarea id="services" name="services" class="form-control" rows="2" placeholder="Enter Services" required></textarea>
+            <textarea id="services" name="services" class="form-control" rows="2" placeholder="Enter Services" required>{{data.services}}</textarea>
         </div>
         <div class="col-md-6">
             <label for="stock" class="form-label">Stock</label>
-            <input type="number" id="stock" name="stock" class="form-control" placeholder="Enter Stock" required>
+            <input type="number" id="stock" name="stock" class="form-control" placeholder="Enter Stock" value="{{data.stock}}" required>
         </div>
         <div class="col-md-6">
             <label for="img" class="form-label">Product Image</label>
-            <input type="file" id="img" name="img" class="form-control" required>
+            <input type="file" id="img" name="img" class="form-control">
         </div>
         <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary">Add Product</button>

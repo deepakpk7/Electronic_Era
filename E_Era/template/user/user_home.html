@@ -8,51 +8,143 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 </head>
 <body>
+    <!-- SVG Icon Definitions -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="cart-outline" viewBox="0 0 24 24">
+          <path d="M7 4h13l-1.35 6.72A4 4 0 0115 14H8a4 4 0 01-4-4l1-6h2zm13 0H8l-1 6a2 2 0 002 2h7a2 2 0 002-2L20 4z" />
+        </symbol>
+        <symbol id="quality" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </symbol>
+        <symbol id="price-tag" viewBox="0 0 24 24">
+          <path d="M7 2a2 2 0 00-2 2v10l7 7 9-9-7-7H7zm0 2h4l7 7-7 7-7-7V4z" />
+        </symbol>
+        <symbol id="shield-plus" viewBox="0 0 24 24">
+          <path d="M12 2a6 6 0 016 6v7a6 6 0 01-5.12 5.95L12 22l-0.88-1.05A6 6 0 016 15V8a6 6 0 016-6zm0 2a4 4 0 00-4 4v7a4 4 0 003.35 3.95L12 20l0.65-0.05A4 4 0 0016 15V8a4 4 0 00-4-4zm-1 7h2v2h-2v2h-2v-2H7v-2h2v-2h2v2z" />
+        </symbol>
+    </svg>
+
     <!-- Header Section -->
-    
-    <header class="main-header">
+    <header class="main-header bg-light py-3">
         <div class="container">
-            <nav class="navbar navbar-expand-lg main-nav px-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-0">
                 <a class="navbar-brand" href="/mojo">
-                    <img src="{% static 'img/era_logo.png' %}" alt="rajeshdas.com">
+                    <img src="{% static 'img/era_logo.png' %}" alt="E-Era Logo" class="img-fluid" style="max-height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar icon-bar-1"></span>
-                    <span class="icon-bar icon-bar-2"></span>
-                    <span class="icon-bar icon-bar-3"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="mainMenu">
-                    <ul class="navbar-nav ms-auto text-uppercase f1">
-                        <li class="nav-item">
-                            <a href="../" class="nav-link active">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Cart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">about</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logout" class="nav-link">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">Contact</a>
-                        </li>
+                    <ul class="navbar-nav ms-auto text-uppercase">
+                        <li class="nav-item"><a href="../" class="nav-link active">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Cart</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Orders</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
+                        <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
+                        <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
-        
-    <!-- Bootstrap 5 JS -->
+    <!-- Carousel Section -->
+    <section id="billboard" class="bg-light-blue py-5" style="background: linear-gradient(180deg, #0b0c3b, #4c49a0);">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- First Slide (Already Active) -->
+                <div class="carousel-item active">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <h1 class="text-uppercase text-dark pb-4">Your Products Are Great.</h1>
+                                <a href="#" class="btn btn-dark text-uppercase">Shop Product</a>
+                            </div>
+                            <div class="col-lg-6 text-center">
+                                <img src="{% static 'img/banner-image.png' %}" alt="Banner" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Second Slide (New Image) -->
+                <div class="carousel-item">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <h1 class="text-uppercase text-dark pb-4">Explore Latest Trends.</h1>
+                                <a href="#" class="btn btn-dark text-uppercase">Shop Now</a>
+                            </div>
+                            <div class="col-lg-6 text-center">
+                                <img src="{% static 'img/banner-image.png' %}" alt="New Banner" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <h1 class="text-uppercase text-dark pb-4">Explore Latest Trends.</h1>
+                                <a href="#" class="btn btn-dark text-uppercase">Shop Now</a>
+                            </div>
+                            <div class="col-lg-6 text-center">
+                                <img src="{% static 'img/banner-image.png' %}" alt="New Banner" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    
+    <div class="container py-5" style="margin-top: 25px;">
+        <div class="row g-4">
+            {% for pro in products %}
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <a href="view_product/{{pro.pk}}" style="text-decoration: none;">
+                    <div class="card h-100 shadow">
+                        <img src="{{pro.img.url}}" class="card-img-top" alt="{{pro.name}}" style="height: 300px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{pro.name}}</h5>
+                            <p class="card-text">{{pro.dis}}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="../add_to_cart/{{pro.pk}}" class="btn btn-outline-dark d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
+                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                </svg>Add to Cart
+                            </a>
+                            <a href="../pro_buy/{{pro.pk}}" class="btn btn-outline-dark d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag me-2" viewBox="0 0 16 16">
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                </svg>Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+    <!-- Bootstrap and JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
