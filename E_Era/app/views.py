@@ -60,12 +60,7 @@ def register(req):
 
 
 
-def user_home(req):
-    if 'user' in req.session:
-        data=Product.objects.all()
-        return render(req,'user/user_home.html',{'products':data})
-    else:
-        return redirect(s_login)
+
 
 
 def shop_home(req):
@@ -144,3 +139,40 @@ def delete_product(req,pid):
 
 def view_booking(req):
     return render(req,'shop/view_bookings.html')
+
+
+# ---------------user---------------
+def user_home(req):
+    if 'user' in req.session:
+        data=Product.objects.all()
+        return render(req,'user/user_home.html',{'products':data})
+    else:
+        return redirect(s_login)
+    
+def view_product(req,pid):
+    if 'user' in req.session:
+        data=Product.objects.get(pk=pid)
+        return render(req,'user/view_product.html',{'product': data})
+    else:
+        return render(req,'user/home.html')
+    
+    
+def contact(req):
+    if req.method == 'POST':
+        name = req.POST['name']
+        email = req.POST['email']
+        phone = req.POST['phone']
+        message = req.POST['message']
+        try:
+            data = Contact.objects.create(
+                name=name,
+                email=email,
+                phone=phone,
+                message=message
+            )
+            data.save()
+            return render(req, 'user/contact.html')
+        except Exception as e:
+            return render(req,'user/contact.html')
+    
+    return render(req,'user/contact.html')

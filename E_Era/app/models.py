@@ -31,3 +31,11 @@ class Buy(models.Model):
     qty=models.IntegerField()
     price=models.IntegerField()
     date=models.DateField(auto_now_add=True)
+    
+    
+
+class Contact(models.Model):
+    name = models.TextField()
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    message = models.TextField()
