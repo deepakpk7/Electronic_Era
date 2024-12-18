@@ -52,6 +52,9 @@
               <a class="nav-link" href="add_phone">Add Phone</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="add_accessories">Add Accessories</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="view_booking">View Bookings</a>
             </li>
             <li class="nav-item">
@@ -63,59 +66,55 @@
     </div>
   </nav>
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Edit Product</h2>
-    <form method="post" action="" enctype="multipart/form-data" class="row g-3" >
+    <h2 class="text-center mb-4">Add Phone</h2>
+    <form method="post" action="" enctype="multipart/form-data" class="row g-3">
         {% csrf_token %}
         <div class="col-md-6">
-            <label for="pid" class="form-label">Product ID</label>
-            <input type="text" id="pid" name="pid" class="form-control" placeholder="Enter Product ID" value="{{data.pid}}" required>
+            <label for="brand" class="form-label">Brand</label>
+            <input type="text" id="brand" name="brand" class="form-control" placeholder="Enter Brand" required>
         </div>
         <div class="col-md-6">
-            <label for="name" class="form-label">Product Name</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Product Name" value="{{data.name}}" required>
-        </div>
-        <div class="col-12">
-            <label for="specifications" class="form-label">Specifications</label>
-            <textarea id="specifications" name="specifications" class="form-control" rows="3" placeholder="Enter Specifications" required>{{data.specifications}}</textarea>
+            <label for="model" class="form-label">Model</label>
+            <input type="text" id="model" name="model" class="form-control" placeholder="Enter Model" required>
         </div>
         <div class="col-md-6">
             <label for="price" class="form-label">Price</label>
-            <input type="number" id="price" name="price" class="form-control" placeholder="Enter Price" value="{{data.price}}" required>
+            <input type="number" id="price" name="price" class="form-control" placeholder="Enter Price" required>
         </div>
         <div class="col-md-6">
             <label for="offer_price" class="form-label">Offer Price</label>
-            <input type="number" id="offer_price" name="offer_price" class="form-control" placeholder="Enter Offer Price" value="{{data.offer_price}}" required>
+            <input type="number" id="offer_price" name="offer_price" class="form-control" placeholder="Enter Offer Price" required>
         </div>
         <div class="col-md-6">
-            <label for="brand" class="form-label">Brand</label>
-            <input type="text" id="brand" name="brand" class="form-control" placeholder="Enter Brand" value="{{data.brand}}" required>
+            <label for="operating_system" class="form-label">Operating System</label>
+            <input type="text" id="operating_system" name="operating_system" class="form-control" placeholder="Enter Operating System" required>
+        </div>
+        <div class="col-md-6">
+            <label for="storage_capacity" class="form-label">Storage Capacity</label>
+            <input type="text" id="storage_capacity" name="storage_capacity" class="form-control" placeholder="Enter Storage Capacity (e.g., 128GB)" required>
+        </div>
+        <div class="col-md-6">
+            <label for="ram" class="form-label">RAM</label>
+            <input type="text" id="ram" name="ram" class="form-control" placeholder="Enter RAM (e.g., 8GB)" required>
         </div>
         <div class="col-md-6">
             <label for="color" class="form-label">Color</label>
-            <input type="text" id="color" name="color" class="form-control" placeholder="Enter Color" value="{{data.color}}" required>
+            <input type="text" id="color" name="color" class="form-control" placeholder="Enter Color" required>
         </div>
         <div class="col-12">
-            <label for="highlights" class="form-label">Highlights</label>
-            <textarea id="highlights" name="highlights" class="form-control" rows="3" placeholder="Enter Highlights" required>{{data.highlights}}</textarea>
-        </div>
-        <div class="col-md-6">
-            <label for="warranty" class="form-label">Warranty</label>
-            <textarea id="warranty" name="warranty" class="form-control" rows="2" placeholder="Enter Warranty" required>{{data.warranty}}</textarea>
-        </div>
-        <div class="col-md-6">
-            <label for="services" class="form-label">Services</label>
-            <textarea id="services" name="services" class="form-control" rows="2" placeholder="Enter Services" required>{{data.services}}</textarea>
+          <label for="specifications" class="form-label">Specifications</label>
+          <textarea id="specifications" name="specifications" class="form-control" rows="3" placeholder="Enter Specifications" required></textarea>
         </div>
         <div class="col-md-6">
             <label for="stock" class="form-label">Stock</label>
-            <input type="number" id="stock" name="stock" class="form-control" placeholder="Enter Stock" value="{{data.stock}}" required>
+            <input type="number" id="stock" name="stock" class="form-control" placeholder="Enter Stock" required>
         </div>
         <div class="col-md-6">
             <label for="img" class="form-label">Product Image</label>
-            <input type="file" id="img" name="img" class="form-control">
+            <input type="file" id="img" name="img" class="form-control" required>
         </div>
         <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="submit" class="btn btn-primary">Add Phone</button>
         </div>
     </form>
 </div>

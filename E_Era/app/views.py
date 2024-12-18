@@ -66,6 +66,7 @@ def register(req):
 def shop_home(req):
     if 'shop' in req.session:
         data=Product.objects.all()
+        # phone=Phone.objects.all()
         return render(req,'shop/shop_home.html',{'products':data})
     else:
         return redirect(s_login)
@@ -96,6 +97,33 @@ def add_pro(req):
             return render(req,'shop/add_product.html')
     else:
         return redirect(s_login)
+    
+def add_phone(req):
+    if 'shop' in req.session:
+        if req.method=='POST':
+            brand=req.POST['brand']
+            model=req.POST['model']
+            price=req.POST['price']
+            offer_price=req.POST['offer_price']
+            operating_system=req.POST['operating_system']
+            storage_capacity=req.POST['storage_capacity']
+            ram=req.POST['ram']
+            color=req.POST['color']
+            specifications=req.POST['specifications']
+            stock=req.POST['stock']
+            img=req.FILES['img']
+            phone=Phone(brand=brand,model=model,price=price,offer_price=offer_price,
+                        operating_system=operating_system,storage_capacity=storage_capacity,
+                        ram=ram,color=color,stock=stock,specifications=specifications,img=img)
+            phone.save()
+            return redirect(shop_home)
+        else:
+            return render(req,'shop/add_phone.html')
+    else:
+        return redirect(s_login)
+    
+def add_accessories(req):
+    return render(req,'shop/add_accessories.html')
     
 def edit_product(req,pid):
     if req.method=='POST':
