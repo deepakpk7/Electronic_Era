@@ -14,6 +14,7 @@ urlpatterns = [
     path('edit_product/<pid>',views.edit_product),
     path('view_booking',views.view_booking),
     path('add_phone',views.add_phone),
+    path('edit_phone/<id>',views.edit_phone),
     path('add_accessories',views.add_accessories),
     
 

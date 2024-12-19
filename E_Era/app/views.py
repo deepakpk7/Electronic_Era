@@ -66,8 +66,9 @@ def register(req):
 def shop_home(req):
     if 'shop' in req.session:
         data=Product.objects.all()
-        # phone=Phone.objects.all()
-        return render(req,'shop/shop_home.html',{'products':data})
+        phone=Phone.objects.all()
+        accessory=Accessories.objects.all()
+        return render(req,'shop/shop_home.html',{'products':data,'phone':phone,'accessory':accessory})
     else:
         return redirect(s_login)
 
@@ -122,8 +123,59 @@ def add_phone(req):
     else:
         return redirect(s_login)
     
+def edit_phone(req,id):
+    if req.method=='POST':
+        brand=req.POST['brand']
+        model=req.POST['model']
+        price=req.POST['price']
+        offer_price=req.POST['offer_price']
+        operating_system=req.POST['operating_system']
+        storage_capacity=req.POST['storage_capacity']
+        ram=req.POST['ram']
+        color=req.POST['color']
+        specifications=req.POST['specifications']
+        stock=req.POST['stock']
+        img=req.FILES['img']
+        if img:
+            Phone.objects.filter(pk=id).update(brand=brand,model=model,price=price,offer_price=offer_price,
+                        operating_system=operating_system,storage_capacity=storage_capacity,
+                        ram=ram,color=color,stock=stock,specifications=specifications)
+            data=Phone.objects.get(pk=id)
+            data.img=img
+            data.save()
+        else:
+            Phone.objects.filter(pk=id).update(brand=brand,model=model,price=price,offer_price=offer_price,
+                                                      operating_system=operating_system,storage_capacity=storage_capacity,
+                                                        ram=ram,color=color,stock=stock,specifications=specifications)
+        return redirect(shop_home)
+    else:
+        phone=Phone.objects.get(pk=id)
+        return render(req,'shop/edit_phone.html',{'phone':phone})
+        
+    
 def add_accessories(req):
-    return render(req,'shop/add_accessories.html')
+    if 'shop' in req.session:
+        if req.method=='POST':
+            accessory_id=req.POST['accessory_id']
+            name=req.POST['name']
+            brand=req.POST['brand']
+            color=req.POST['color']
+            description=req.POST['description']
+            price=req.POST['price']
+            offer_price=req.POST['offer_price']
+            stock=req.POST['stock']
+            warranty=req.POST['warranty']
+            img=req.FILES['img']
+            accessory=Accessories(accessory_id=accessory_id,name=name,brand=brand,color=color,
+                                  description=description,price=price,offer_price=offer_price,
+                                  stock=stock,warranty=warranty,img=img)
+            accessory.save()
+            return redirect(shop_home)
+        else:
+            return render(req,'shop/add_accessories.html')
+    else:
+        return redirect(s_login)
+            
     
 def edit_product(req,pid):
     if req.method=='POST':
