@@ -151,8 +151,15 @@ def edit_phone(req,id):
     else:
         phone=Phone.objects.get(pk=id)
         return render(req,'shop/edit_phone.html',{'phone':phone})
-        
-    
+
+def delete_phone(req,id):
+    data=Phone.objects.get(pk=id)
+    file=data.img.url
+    file=file.split('/')[-1]
+    os.remove('media/'+file)
+    data.delete()
+    return redirect(shop_home)        
+
 def add_accessories(req):
     if 'shop' in req.session:
         if req.method=='POST':
@@ -175,6 +182,42 @@ def add_accessories(req):
             return render(req,'shop/add_accessories.html')
     else:
         return redirect(s_login)
+    
+def edit_accessories(req,id):
+    if req.method=='POST':
+        accessory_id=req.POST['accessory_id']
+        name=req.POST['name']
+        brand=req.POST['brand']
+        color=req.POST['color']
+        description=req.POST['description']
+        price=req.POST['price']
+        offer_price=req.POST['offer_price']
+        stock=req.POST['stock']
+        warranty=req.POST['warranty']
+        img=req.FILES['img']
+        if img:
+            Accessories.objects.filter(pk=id).update(accessory_id=accessory_id,name=name,brand=brand,color=color,
+                                  description=description,price=price,offer_price=offer_price,
+                                  stock=stock,warranty=warranty)
+            data=Accessories.objects.get(pk=id)
+            data.img=img
+            data.save()
+        else:
+            Accessories.objects.filter(pk=id).update(accessory_id=accessory_id,name=name,brand=brand,color=color,
+                                  description=description,price=price,offer_price=offer_price,
+                                  stock=stock,warranty=warranty)
+        return redirect(shop_home)
+    else:
+        accessory=Accessories.objects.get(pk=id)
+        return render(req,'shop/edit_accessories.html',{'accessory':accessory})
+    
+def delete_accessory(req,id):
+    data=Accessories.objects.get(pk=id)
+    file=data.img.url
+    file=file.split('/')[-1]
+    os.remove('media/'+file)
+    data.delete()
+    return redirect(shop_home)
             
     
 def edit_product(req,pid):
@@ -225,7 +268,9 @@ def view_booking(req):
 def user_home(req):
     if 'user' in req.session:
         data=Product.objects.all()
-        return render(req,'user/user_home.html',{'products':data})
+        phone=Phone.objects.all()
+        accessories=Accessories.objects.all()
+        return render(req,'user/user_home.html',{'products':data,'phone':phone,'accessories':accessories})
     else:
         return redirect(s_login)
     

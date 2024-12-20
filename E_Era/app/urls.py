@@ -15,6 +15,7 @@ urlpatterns = [
     path('view_booking',views.view_booking),
     path('add_phone',views.add_phone),
     path('edit_phone/<id>',views.edit_phone),
+    path('edit_accessories/<id>',views.edit_accessories),
     path('add_accessories',views.add_accessories),
     
 

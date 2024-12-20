@@ -4,19 +4,30 @@
     z-index: 999;
   }
   body {
-    /* Apply the gradient to the entire body */
-    /* background: linear-gradient(180deg, #0b0c3b, #4c49a0); */
-    margin: 0; /* Reset default margin */
-    height: 100vh; /* Ensure the body takes up full height of the viewport */
+    font-family: Arial, sans-serif;
+    padding-top: 75px;
+    margin: 0; 
+    height: 100vh; 
 }
 
 .main-header {
-    /* Optional: Apply additional padding to header */
+    
     padding: 20px 0;
 }
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-item img {
+    height: 200px; 
+    object-fit: cover;
+  }
+
 
   .main-header{
-    /* background-color: purple; */
     background: linear-gradient(180deg, #0b0c3b, #4c49a0);
     margin-top: 0%;
   }
@@ -189,6 +200,31 @@
   filter: brightness(0.9); 
   color: #000;
 
+}
+.main-header {
+  background-color: #f8f9fa;
+}
+#billboard {
+  background: linear-gradient(180deg, #0b0c3b, #4c49a0);
+  color: white;
+}
+.card img {
+  transition: transform 0.3s ease;
+}
+.card img:hover {
+  transform: scale(1.05);
+}
+.carousel-item h1 {
+  font-size: 2.5rem;
+}
+@media (max-width: 768px) {
+  .carousel-item h1 {
+      font-size: 1.8rem;
+  }
+  .carousel-item img {
+      max-width: 100%;
+      height: auto;
+  }
 }
 
 @media (min-width: 768px) {
