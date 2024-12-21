@@ -8,9 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/user.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <style>
+        .welcome{
+            position: relative;
+            font-size: 15px;
+            color: white;
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
+    
     <header class="main-header py-3 shadow-sm">
+        
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="/mojo">
@@ -22,9 +32,8 @@
                 <div class="collapse navbar-collapse" id="mainMenu">
                     <ul class="navbar-nav ms-auto text-uppercase">
                         <li class="nav-item"><a href="../" class="nav-link active">Home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Cart</a></li>
+                        <li class="nav-item"><a href="view_cart" class="nav-link">Cart</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Orders</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
                         <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
                         <li class="nav-item"><a href="contact" class="nav-link">Contact</a></li>
@@ -33,7 +42,7 @@
             </nav>
         </div>
     </header>
-
+    <!-- carousel -->
     <div id="responsiveCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#responsiveCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -42,7 +51,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{% static 'img/caro_1.jpg' %}" class="d-block w-100" alt="First slide">
+                <img src="{% static 'img/car_2.jpg' %}" class="d-block w-100" alt="First slide">
                 <div class="carousel-caption text-light">
                     <h5>First Slide Title</h5>
                     <p>Some descriptive text for the first slide.</p>
@@ -72,41 +81,45 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
     <div class="container py-5" style="margin-top: 25px;">
         <h1 class="mb-4 text-center">Laptop</h1>
         <div class="row g-4">
+            
             {% for pro in products %}
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="{{pro.img.url}}" class="card-img-top" alt="{{p.model}}" style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title text-dark">{{pro.name}}</h5>
-                        <p class="card-text text-muted">{{p.storage_capacity}}</p>
-                        <p class="card-text text-danger fw-bold" style="font-size: 25px;">₹ {{pro.offer_price}}</p>
-                        <p class="card-text text-muted text-decoration-line-through" style="font-size: 15px;">{{pro.price}}</p>
-                    </div>
-                    <div class="card-footer bg-transparent border-0">
-                        <div class="d-flex justify-content-around">
-                            <!-- Add to Cart Button -->
-                            <a href="../add_to_cart/{{p.pk}}" class="btn btn-success btn-sm d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
-                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
-                                    <path d="M0.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM3.915 10L3.102 4h10.796l-1.313 7z" />
-                                </svg>
-                                Add to Cart
-                            </a>
-                    
-                            <!-- Buy Now Button -->
-                            <a href="../pro_buy/{{p.pk}}" class="btn btn-primary btn-sm d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag me-2" viewBox="0 0 16 16">
-                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-                                </svg>
-                                Buy Now
-                            </a>
+                <a href="view_product/{{pro.pk}}" style="text-decoration: none;">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="{{pro.img.url}}" class="card-img-top" alt="{{p.model}}" style="height: 300px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-dark">{{pro.name}}</h5>
+                            <p class="card-text text-muted">{{p.storage_capacity}}</p>
+                            <p class="card-text text-danger fw-bold" style="font-size: 25px;">₹ {{pro.offer_price}}</p>
+                            <p class="card-text text-muted text-decoration-line-through" style="font-size: 15px;">{{pro.price}}</p>
                         </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="d-flex justify-content-around">
+                                <!-- Add to Cart Button -->
+                                <a href="../add_to_cart/{{pro.pk}}" class="btn btn-success btn-sm d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
+                                        <path d="M0.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM3.915 10L3.102 4h10.796l-1.313 7z" />
+                                    </svg>
+                                    Add to Cart
+                                </a>
+                        
+                                <!-- Buy Now Button -->
+                                <a href="../pro_buy/{{p.pk}}" class="btn btn-primary btn-sm d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag me-2" viewBox="0 0 16 16">
+                                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                    </svg>
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+                        
                     </div>
-                    
-                </div>
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -118,36 +131,39 @@
         <div class="row g-4">
             {% for p in phone %}
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="{{p.img.url}}" class="card-img-top" alt="{{p.model}}" style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title text-dark">{{p.model}}</h5>
-                        <p class="card-text text-muted">{{p.storage_capacity}}</p>
-                        <p class="card-text text-danger fw-bold" style="font-size: 25px;">₹ {{p.offer_price}}</p>
-                        <p class="card-text text-muted text-decoration-line-through" style="font-size: 15px;">{{p.price}}</p>
-                    </div>
-                    <div class="card-footer bg-transparent border-0">
-                        <div class="d-flex justify-content-around">
-                            <!-- Add to Cart Button -->
-                            <a href="../add_to_cart/{{p.pk}}" class="btn btn-success btn-sm d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
-                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
-                                    <path d="M0.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM3.915 10L3.102 4h10.796l-1.313 7z" />
-                                </svg>
-                                Add to Cart
-                            </a>
-                    
-                            <!-- Buy Now Button -->
-                            <a href="../pro_buy/{{p.pk}}" class="btn btn-primary btn-sm d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag me-2" viewBox="0 0 16 16">
-                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-                                </svg>
-                                Buy Now
-                            </a>
+                <a href="view_product/{{p.pk}}" style="text-decoration: none;">
+
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="{{p.img.url}}" class="card-img-top" alt="{{p.model}}" style="height: 300px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-dark">{{p.model}}</h5>
+                            <p class="card-text text-muted">{{p.storage_capacity}}</p>
+                            <p class="card-text text-danger fw-bold" style="font-size: 25px;">₹ {{p.offer_price}}</p>
+                            <p class="card-text text-muted text-decoration-line-through" style="font-size: 15px;">{{p.price}}</p>
                         </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="d-flex justify-content-around">
+                                <!-- Add to Cart Button -->
+                                <a href="../add_to_cart/{{p.pk}}" class="btn btn-success btn-sm d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
+                                        <path d="M0.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM3.915 10L3.102 4h10.796l-1.313 7z" />
+                                    </svg>
+                                    Add to Cart
+                                </a>
+                        
+                                <!-- Buy Now Button -->
+                                <a href="../pro_buy/{{p.pk}}" class="btn btn-primary btn-sm d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag me-2" viewBox="0 0 16 16">
+                                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                    </svg>
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+                        
                     </div>
-                    
-                </div>
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -193,5 +209,6 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>

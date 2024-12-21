@@ -277,9 +277,27 @@ def user_home(req):
 def view_product(req,pid):
     if 'user' in req.session:
         data=Product.objects.get(pk=pid)
-        return render(req,'user/view_product.html',{'product': data})
+        phone=Phone.objects.get(pk=id)
+        return render(req,'user/view_product.html',{'product': data,'phone':phone})
     else:
         return render(req,'user/home.html')
+    
+def add_to_cart(req,pid):
+    product=Product.objects.get(pk=pid)
+    user=User.objects.get(username=req.session['user'])
+    try:
+        cart=Cart.objects.get(user=user,product=product)
+        cart.qty+=1
+        cart.save()
+    except:
+        data=Cart.objects.create(product=product,user=user,qty=1)
+        data.save()
+    return redirect(view_cart)
+
+def view_cart(req):
+    user=User.objects.get(username=req.session['user'])
+    data=Cart.objects.filter(user=user)
+    return render(req,'user/cart.html',{'cart':data})
     
     
 def contact(req):

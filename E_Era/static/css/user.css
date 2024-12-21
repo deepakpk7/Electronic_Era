@@ -11,22 +11,10 @@
 }
 
 .main-header {
+  position: absolute;
     
     padding: 20px 0;
 }
-.carousel-caption {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.carousel-item img {
-    height: 200px; 
-    object-fit: cover;
-  }
-
-
   .main-header{
     background: linear-gradient(180deg, #0b0c3b, #4c49a0);
     margin-top: 0%;
@@ -125,53 +113,6 @@
     line-height: 1.6;
     margin: 0;
   }
-  #billboard .swiper-arrow {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-}
-.swiper-icon.swiper-arrow svg {
-    fill: var(--light-gray-color);
-}
-.swiper-icon.swiper-arrow:hover svg,
-.swiper-icon.swiper-arrow:focus svg {
-    fill: var(--primary-color);
-}
-#billboard .swiper-arrow.swiper-arrow-prev {
-    left: 0;
-}
-#billboard .swiper-arrow.swiper-arrow-next {
-    right: 0;
-}
-#billboard .carousel-item {
-  min-height: 60vh; /* Ensures consistent height across slides */
-}
-
-#billboard .banner-content h1 {
-  font-size: 2rem; /* Default for mobile */
-}
-#company-services {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 50px; /* Adds space below */
-  min-height: 300px;
-  overflow: hidden;
-}
-
-.icon-box-icon svg {
-  width: 40px; /* Set desired size */
-  height: 40px;
-  fill: currentColor; /* Inherit color from text */
-}
-
-
-.overlaying-section {
-  position: relative;
-  z-index: 2; /* Ensure it's above company-services */
-}
 .card-footer a {
   display: flex;
   align-items: center;
@@ -204,49 +145,54 @@
 .main-header {
   background-color: #f8f9fa;
 }
-#billboard {
-  background: linear-gradient(180deg, #0b0c3b, #4c49a0);
-  color: white;
-}
 .card img {
   transition: transform 0.3s ease;
 }
 .card img:hover {
   transform: scale(1.05);
 }
-.carousel-item h1 {
-  font-size: 2.5rem;
+.carousel{
+  width: 100%;
+  height: 100vh;
+}
+.carousel-item img {
+  height: 60vh; /* Dynamic height */
+  object-fit: cover; /* Ensures proper scaling of images */
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 @media (max-width: 768px) {
-  .carousel-item h1 {
-      font-size: 1.8rem;
-  }
   .carousel-item img {
-      max-width: 100%;
-      height: auto;
+      height: 40vh; /* Reduce height for smaller screens */
+  }
+
+  .carousel-caption h5 {
+      font-size: 1.25rem; /* Smaller heading */
+  }
+
+  .carousel-caption p {
+      font-size: 0.9rem; /* Smaller paragraph */
   }
 }
 
-@media (min-width: 768px) {
-  #billboard .banner-content h1 {
-    font-size: 3rem; /* Larger font for tablets and above */
+@media (max-width: 576px) {
+  .carousel-caption {
+      top: 60%; /* Adjust position for very small screens */
+  }
+
+  .carousel-caption h5 {
+      font-size: 1rem;
+  }
+
+  .carousel-caption p {
+      font-size: 0.8rem;
   }
 }
-
-
-@media only screen and (max-width: 767px) {
-  #billboard .banner-content {
-      margin-top: 210px;
-  }
-  #billboard .image-holder {
-      margin-top: -390px;
-      opacity: 0.3;
-  }
-  #billboard .swiper-arrow {
-      top: 400px;
-  }
-}
-  /* main-header end */
   @media (max-width: 991px) {
     /*header starts*/
     .collapse.in {
@@ -286,7 +232,6 @@
       border-radius: 0px;
     }
   
-    /**/
     .main-header .navbar-toggler .icon-bar {
       background-color: #fff;
       margin: 0 auto 6px;
@@ -343,7 +288,5 @@
     .main-header .navbar-toggler:focus .icon-bar {
       background-color: #fff;
     }
-  
-    /*header ends*/
   }
   
