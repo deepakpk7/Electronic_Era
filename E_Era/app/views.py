@@ -277,8 +277,14 @@ def user_home(req):
 def view_product(req,pid):
     if 'user' in req.session:
         data=Product.objects.get(pk=pid)
-        phone=Phone.objects.get(pk=id)
-        return render(req,'user/view_product.html',{'product': data,'phone':phone})
+        return render(req,'user/view_product.html',{'product': data})
+    else:
+        return render(req,'user/home.html')
+    
+def view_phone(req,pid):
+    if 'user' in req.session:
+        data=Phone.objects.get(pk=pid)
+        return render(req,'user/view_phone.html',{'phone':data})
     else:
         return render(req,'user/home.html')
     
