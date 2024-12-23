@@ -217,7 +217,13 @@ def bookings(req):
     user=User.objects.get(username=req.session['user'])
     buy=Buy.objects.filter(user=user)[::-1]
     return render(req,'user/order.html',{'bookings':buy})
-    
+
+
+
+def cancel_order(req, pid):
+    data =Buy.objects.get(pk=pid)
+    data.delete()
+    return redirect(bookings)  
     
 def contact(req):
     if req.method == 'POST':
