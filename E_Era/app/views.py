@@ -66,9 +66,7 @@ def register(req):
 def shop_home(req):
     if 'shop' in req.session:
         data=Product.objects.all()
-        phone=Phone.objects.all()
-        accessory=Accessories.objects.all()
-        return render(req,'shop/shop_home.html',{'products':data,'phone':phone,'accessory':accessory})
+        return render(req,'shop/shop_home.html',{'products':data})
     else:
         return redirect(s_login)
 
@@ -99,127 +97,7 @@ def add_pro(req):
     else:
         return redirect(s_login)
     
-def add_phone(req):
-    if 'shop' in req.session:
-        if req.method=='POST':
-            brand=req.POST['brand']
-            model=req.POST['model']
-            price=req.POST['price']
-            offer_price=req.POST['offer_price']
-            operating_system=req.POST['operating_system']
-            storage_capacity=req.POST['storage_capacity']
-            ram=req.POST['ram']
-            color=req.POST['color']
-            specifications=req.POST['specifications']
-            stock=req.POST['stock']
-            img=req.FILES['img']
-            phone=Phone(brand=brand,model=model,price=price,offer_price=offer_price,
-                        operating_system=operating_system,storage_capacity=storage_capacity,
-                        ram=ram,color=color,stock=stock,specifications=specifications,img=img)
-            phone.save()
-            return redirect(shop_home)
-        else:
-            return render(req,'shop/add_phone.html')
-    else:
-        return redirect(s_login)
-    
-def edit_phone(req,id):
-    if req.method=='POST':
-        brand=req.POST['brand']
-        model=req.POST['model']
-        price=req.POST['price']
-        offer_price=req.POST['offer_price']
-        operating_system=req.POST['operating_system']
-        storage_capacity=req.POST['storage_capacity']
-        ram=req.POST['ram']
-        color=req.POST['color']
-        specifications=req.POST['specifications']
-        stock=req.POST['stock']
-        img=req.FILES['img']
-        if img:
-            Phone.objects.filter(pk=id).update(brand=brand,model=model,price=price,offer_price=offer_price,
-                        operating_system=operating_system,storage_capacity=storage_capacity,
-                        ram=ram,color=color,stock=stock,specifications=specifications)
-            data=Phone.objects.get(pk=id)
-            data.img=img
-            data.save()
-        else:
-            Phone.objects.filter(pk=id).update(brand=brand,model=model,price=price,offer_price=offer_price,
-                                                      operating_system=operating_system,storage_capacity=storage_capacity,
-                                                        ram=ram,color=color,stock=stock,specifications=specifications)
-        return redirect(shop_home)
-    else:
-        phone=Phone.objects.get(pk=id)
-        return render(req,'shop/edit_phone.html',{'phone':phone})
-
-def delete_phone(req,id):
-    data=Phone.objects.get(pk=id)
-    file=data.img.url
-    file=file.split('/')[-1]
-    os.remove('media/'+file)
-    data.delete()
-    return redirect(shop_home)        
-
-def add_accessories(req):
-    if 'shop' in req.session:
-        if req.method=='POST':
-            accessory_id=req.POST['accessory_id']
-            name=req.POST['name']
-            brand=req.POST['brand']
-            color=req.POST['color']
-            description=req.POST['description']
-            price=req.POST['price']
-            offer_price=req.POST['offer_price']
-            stock=req.POST['stock']
-            warranty=req.POST['warranty']
-            img=req.FILES['img']
-            accessory=Accessories(accessory_id=accessory_id,name=name,brand=brand,color=color,
-                                  description=description,price=price,offer_price=offer_price,
-                                  stock=stock,warranty=warranty,img=img)
-            accessory.save()
-            return redirect(shop_home)
-        else:
-            return render(req,'shop/add_accessories.html')
-    else:
-        return redirect(s_login)
-    
-def edit_accessories(req,id):
-    if req.method=='POST':
-        accessory_id=req.POST['accessory_id']
-        name=req.POST['name']
-        brand=req.POST['brand']
-        color=req.POST['color']
-        description=req.POST['description']
-        price=req.POST['price']
-        offer_price=req.POST['offer_price']
-        stock=req.POST['stock']
-        warranty=req.POST['warranty']
-        img=req.FILES['img']
-        if img:
-            Accessories.objects.filter(pk=id).update(accessory_id=accessory_id,name=name,brand=brand,color=color,
-                                  description=description,price=price,offer_price=offer_price,
-                                  stock=stock,warranty=warranty)
-            data=Accessories.objects.get(pk=id)
-            data.img=img
-            data.save()
-        else:
-            Accessories.objects.filter(pk=id).update(accessory_id=accessory_id,name=name,brand=brand,color=color,
-                                  description=description,price=price,offer_price=offer_price,
-                                  stock=stock,warranty=warranty)
-        return redirect(shop_home)
-    else:
-        accessory=Accessories.objects.get(pk=id)
-        return render(req,'shop/edit_accessories.html',{'accessory':accessory})
-    
-def delete_accessory(req,id):
-    data=Accessories.objects.get(pk=id)
-    file=data.img.url
-    file=file.split('/')[-1]
-    os.remove('media/'+file)
-    data.delete()
-    return redirect(shop_home)
             
-    
 def edit_product(req,pid):
     if req.method=='POST':
         # pid=req.POST['pid']
@@ -280,14 +158,8 @@ def view_product(req,pid):
         return render(req,'user/view_product.html',{'product': data})
     else:
         return render(req,'user/home.html')
-    
-def view_phone(req,pid):
-    if 'user' in req.session:
-        data=Phone.objects.get(pk=pid)
-        return render(req,'user/view_phone.html',{'phone':data})
-    else:
-        return render(req,'user/home.html')
-    
+
+
 def add_to_cart(req,pid):
     product=Product.objects.get(pk=pid)
     user=User.objects.get(username=req.session['user'])
@@ -304,6 +176,47 @@ def view_cart(req):
     user=User.objects.get(username=req.session['user'])
     data=Cart.objects.filter(user=user)
     return render(req,'user/cart.html',{'cart':data})
+
+def qty_in(req,cid):
+    data=Cart.objects.get(pk=cid)
+    data.qty+=1
+    data.save()
+    return redirect(view_cart)
+
+def qty_dec(req,cid):
+    data=Cart.objects.get(pk=cid)
+    data.qty-=1
+    data.save()
+    print(data.qty)
+    if data.qty==0:
+        data.delete()
+    return redirect(view_cart)
+
+
+def cart_pro_buy(req,cid):
+    cart=Cart.objects.get(pk=cid)
+    product=cart.product
+    user=cart.user
+    qty=cart.qty
+    price=product.offer_price*qty
+    buy=Buy.objects.create(product=product,user=user,qty=qty,price=price)
+    buy.save()
+    return redirect(bookings)
+
+def pro_buy(req,pid):
+    product=Product.objects.get(pk=pid)
+    user=User.objects.get(username=req.session['user'])
+    qty=1
+    price=product.offer_price
+    buy=Buy.objects.create(product=product,user=user,qty=qty,price=price)
+    buy.save()
+    return redirect(bookings)
+
+
+def bookings(req):
+    user=User.objects.get(username=req.session['user'])
+    buy=Buy.objects.filter(user=user)[::-1]
+    return render(req,'user/order.html',{'bookings':buy})
     
     
 def contact(req):
