@@ -156,7 +156,8 @@ def user_home(req):
 def view_product(req,pid):
     if 'user' in req.session:
         data=Product.objects.get(pk=pid)
-        return render(req,'user/view_product.html',{'product': data})
+        relate=Product.objects.all()
+        return render(req,'user/view_product.html',{'product': data,'relate':relate})
     else:
         return render(req,'user/home.html')
 
