@@ -89,31 +89,6 @@
             
         </div>
     </div>
-    <!-- Phone -->
-    <div class="container mt-5">
-        <div class="row mt-6" style="margin-top: 30px;">
-            <div class="col-md-6">
-                <img src="{{phone.img.url}}" alt="Product Image" class="img-fluid rounded">
-            </div>
-
-            <div class="col-md-6">
-                <h2> {{ phone.brand }}</h2>
-                <p class="text-muted"></p>
-                <p class="fs-4 text-dark"><h3><b>₹ {{phone.offer_price}}</b></h3>  <strike>₹ {{product.price}}</strike></p> 
-                <p><b>Color: </b>{{ phone.color }}</p>
-                <p>Model: {{ phone.model }}</p>
-                <p>{{ phone.storage_capacity }}</p>
-                <p class="mt-3"><strong><b>RAM:</b></strong> {{ phone.ram }}</p>
-                <p class="mt-3"><strong><b>Services:</b></strong> {{ product.services }}</p>
-                <div class="d-flex gap-3">
-                    <a href="../add_to_cart/{{product.pk}}" class="btn btn-outline-primary btn-lg">Add to Cart</a>
-                    <a href="../pro_buy/{{product.pk}}" class="btn btn-outline-primary btn-lg">Buy Now</a>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-
 
     <div class="container mt-5">
         <h3 class="mb-4">Related Products</h3>

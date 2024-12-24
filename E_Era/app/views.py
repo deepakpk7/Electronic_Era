@@ -138,9 +138,10 @@ def delete_product(req,pid):
     data.delete()
     return redirect(shop_home)
 
-def view_booking(req):
-    return render(req,'shop/view_bookings.html')
 
+def view_bookings(req):
+    buy=Buy.objects.all()[::-1]
+    return render(req,'shop/view_bookings.html',{'buy':buy})
 
 # ---------------user---------------
 def user_home(req):
@@ -220,7 +221,7 @@ def bookings(req):
 
 
 
-def cancel_order(req, pid):
+def cancel_order(req,pid):
     data =Buy.objects.get(pk=pid)
     data.delete()
     return redirect(bookings)  
