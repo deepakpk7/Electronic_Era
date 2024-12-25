@@ -246,3 +246,11 @@ def contact(req):
             return render(req,'user/contact.html')
     
     return render(req,'user/contact.html')
+
+def profile(req):
+    user=User.objects.get(username=req.session['user'])
+    return render(req,'user/profile.html',{'user':user})
+
+def logout_view(req):
+    s_logout(req)
+    return redirect(s_login)
