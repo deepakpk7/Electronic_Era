@@ -147,9 +147,14 @@ def view_bookings(req):
 def user_home(req):
     if 'user' in req.session:
         data=Product.objects.all()
-        phone=Phone.objects.all()
-        accessories=Accessories.objects.all()
-        return render(req,'user/user_home.html',{'products':data,'phone':phone,'accessories':accessories})
+        apple = Product.objects.filter(brand='Apple')
+        hp=Product.objects.filter(brand='HP')
+        dell=Product.objects.filter(brand='DELL')
+        asus=Product.objects.filter(brand='ASUS')
+        lenovo=Product.objects.filter(brand='Lenovo')
+        acer=Product.objects.filter(brand='acer')
+        
+        return render(req,'user/user_home.html',{'products':data,'apple': apple,'hp':hp,'dell':dell,'asus': asus,'lenovo':lenovo,'acer':acer})
     else:
         return redirect(s_login)
     
@@ -182,6 +187,7 @@ def view_cart(req):
 def qty_in(req,cid):
     data=Cart.objects.get(pk=cid)
     data.qty+=1
+    data.price= data.qty*1
     data.save()
     return redirect(view_cart)
 
