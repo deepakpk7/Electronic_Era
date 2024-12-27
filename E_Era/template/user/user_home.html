@@ -89,7 +89,7 @@
     </div>
     <!-- Brand -->
     <div class="container mt-5">
-        <h3 class="mb-4">Apple Products</h3>
+        <h3 class="mb-4">Apple Laptop's</h3>
         <div class="row flex-nowrap overflow-auto">
             {% for a in apple %}
             {% if a.brand == 'Apple' %}
@@ -131,7 +131,7 @@
         </div>
     </div>
     <div class="container mt-5">
-        <h3 class="mb-4">HP Products</h3>
+        <h3 class="mb-4">HP Laptop's</h3>
         <div class="row flex-nowrap overflow-auto">
             {% for h in hp %}
             {% if h.brand == 'HP' %}
@@ -173,7 +173,7 @@
         </div>
     </div>
     <div class="container mt-5">
-        <h3 class="mb-4">Dell Products</h3>
+        <h3 class="mb-4">Dell Laptop's</h3>
         <div class="row flex-nowrap overflow-auto">
             {% for d in dell %}
             {% if d.brand == 'DELL' %}
@@ -210,29 +210,32 @@
                     </div>
                 </a>
             </div>
+            {% else %}
+                <p>No products found.</p>
             {% endif %}
             {% endfor %}
         </div>
     </div>
+    
     <div class="container mt-5">
-        <h3 class="mb-4">ASUS Products</h3>
+        <h3 class="mb-4">Acer Laptop's</h3>
         <div class="row flex-nowrap overflow-auto">
-            {% for a in asus %}
-            {% if a.brand == 'ASUS' %}
+            {% for x in acer %}
+            {% if x.brand == 'acer' %}
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <a href="view_product/{{a.pk}}" style="text-decoration: none;">
+                <a href="view_product/{{x.pk}}" style="text-decoration: none;">
                     <div class="card h-100 shadow-sm border-0" style="height: 400px;">
-                        <img src="{{as.img.url}}" class="card-img-top" alt="Product Image">
+                        <img src="{{x.img.url}}" class="card-img-top" alt="Product Image">
                         <div class="card-body text-center">
-                            <h5 class="card-title text-dark">{{a.name}}</h5>
-                            <p class="card-text text-muted">{{a.storage_capacity}}</p>
-                            <p class="card-text text-danger fw-bold" style="font-size: 25px;">₹ {{as.offer_price}}</p>
+                            <h5 class="card-title text-dark">{{x.name}}</h5>
+                            <p class="card-text text-muted">{{x.storage_capacity}}</p>
+                            <p class="card-text text-danger fw-bold" style="font-size: 25px;">₹ {{x.offer_price}}</p>
                             <p class="card-text text-muted text-decoration-line-through" style="font-size: 15px;">{{as.price}}</p>
                         </div>
                         <div class="card-footer bg-transparent border-0">
                             <div class="d-flex justify-content-around">
                                 <!-- Add to Cart Button -->
-                                <a href="../add_to_cart/{{as.pk}}" class="btn btn-success btn-sm d-flex align-items-center">
+                                <a href="../add_to_cart/{{x.pk}}" class="btn btn-success btn-sm d-flex align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
                                         <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
                                         <path d="M0.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM3.915 10L3.102 4h10.796l-1.313 7z" />
@@ -241,7 +244,7 @@
                                 </a>
                         
                                 <!-- Buy Now Button -->
-                                <a href="../pro_buy/{{as.pk}}" class="btn btn-primary btn-sm d-flex align-items-center">
+                                <a href="../pro_buy/{{x.pk}}" class="btn btn-primary btn-sm d-flex align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag me-2" viewBox="0 0 16 16">
                                         <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
                                     </svg>
@@ -252,13 +255,15 @@
                     </div>
                 </a>
             </div>
+            {% else %}
+                <p>No products found.</p>
             {% endif %}
             {% endfor %}
         </div>
     </div>
-
+    
     <div class="container mt-5">
-        <h3 class="mb-4">Lenovo Products</h3>
+        <h3 class="mb-4">Lenovo  Laptop's</h3>
         <div class="row flex-nowrap overflow-auto">
             {% for l in lenovo %}
             {% if l.brand == 'Lenovo' %}
@@ -295,16 +300,15 @@
                     </div>
                 </a>
             </div>
+            {% else %}
+                <p>No products found.</p>
             {% endif %}
             {% endfor %}
         </div>
     </div>
+    
 
-    
-    
-    
-    
-    
+
     <footer class="bg-dark text-light pt-5 mt-3" style="font-size: 15px;">
         <div class="container">
             <div class="row">

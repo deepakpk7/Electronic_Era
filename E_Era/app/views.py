@@ -153,7 +153,6 @@ def user_home(req):
         asus=Product.objects.filter(brand='ASUS')
         lenovo=Product.objects.filter(brand='Lenovo')
         acer=Product.objects.filter(brand='acer')
-        
         return render(req,'user/user_home.html',{'products':data,'apple': apple,'hp':hp,'dell':dell,'asus': asus,'lenovo':lenovo,'acer':acer})
     else:
         return redirect(s_login)

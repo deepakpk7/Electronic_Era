@@ -154,11 +154,12 @@
 footer{
   font-family: FFDINforPuma, Inter, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: flex;
+  font-size: 15px;
   }
   
   footer a{
   text-decoration: none;
-   color: rgb(162, 162, 162);
+  color: rgb(162, 162, 162);
   font-size: small;
   }
   footer h6{
