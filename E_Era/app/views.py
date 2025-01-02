@@ -186,7 +186,7 @@ def view_cart(req):
 def qty_in(req,cid):
     data=Cart.objects.get(pk=cid)
     data.qty+=1
-    data.price= data.qty*1
+    data.price= data.qty*data.product.offer_price
     data.save()
     return redirect(view_cart)
 
@@ -230,7 +230,12 @@ def bookings(req):
 def cancel_order(req,pid):
     data =Buy.objects.get(pk=pid)
     data.delete()
-    return redirect(bookings)  
+    return redirect(bookings) 
+
+def clear_cart(req):
+    data=Cart.objects.all()
+    data.delete()
+    return redirect(view_cart)
     
 def contact(req):
     if req.method == 'POST':

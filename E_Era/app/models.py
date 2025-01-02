@@ -39,32 +39,3 @@ class Contact(models.Model):
     phone = models.CharField(max_length=15)
     message = models.TextField()
     
-
-class Phone(models.Model):
-    brand = models.TextField()
-    model = models.TextField()
-    price = models.IntegerField()
-    offer_price = models.IntegerField()
-    operating_system = models.TextField()
-    storage_capacity = models.TextField()
-    ram = models.TextField()
-    color = models.TextField()
-    # specifications=models.TextField()
-    specifications = models.TextField(default="Not specified")
-    stock = models.IntegerField()
-    img=models.FileField()
-
-class Accessories(models.Model):
-    accessory_id = models.TextField()
-    name = models.TextField()           
-    brand = models.TextField()                
-    description = models.TextField()                  
-    price = models.IntegerField()
-    offer_price = models.IntegerField()
-    color = models.TextField()
-    stock = models.IntegerField()
-    warranty = models.TextField()
-    img=models.FileField()
-    created_at = models.DateTimeField(auto_now_add=True)  
-    updated_at = models.DateTimeField(auto_now=True)
-
