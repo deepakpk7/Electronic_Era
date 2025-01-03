@@ -143,6 +143,13 @@ def view_bookings(req):
     buy=Buy.objects.all()[::-1]
     return render(req,'shop/view_bookings.html',{'buy':buy})
 
+def admin_cancel_order(req,pid):
+    data =Buy.objects.get(pk=pid)
+    data.delete()
+    return redirect(view_bookings) 
+
+    
+
 # ---------------user---------------
 def user_home(req):
     if 'user' in req.session:

@@ -13,6 +13,7 @@ urlpatterns = [
     path('delete_product/<pid>',views.delete_product),
     path('edit_product/<pid>',views.edit_product),
     path('view_booking',views.view_bookings),
+    path('admin_cancel_order/<pid>',views.admin_cancel_order),
     
 
     # ------------USER-------------
