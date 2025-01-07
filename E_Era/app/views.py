@@ -159,6 +159,7 @@ def user_home(req):
         dell=Product.objects.filter(brand='DELL')
         asus=Product.objects.filter(brand='ASUS')
         lenovo=Product.objects.filter(brand='Lenovo')
+        print(lenovo)
         acer=Product.objects.filter(brand='acer')
         return render(req,'user/user_home.html',{'products':data,'apple': apple,'hp':hp,'dell':dell,'asus': asus,'lenovo':lenovo,'acer':acer})
     else:
