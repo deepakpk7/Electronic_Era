@@ -91,6 +91,13 @@
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
   }
+  footer a {
+    text-decoration: none;
+    color: inherit;
+}
+footer a:hover {
+    text-decoration: none;
+    } 
   
   .main-header.fixed-nav .navbar-brand > img:last-of-type {
     display: block;
