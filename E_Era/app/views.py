@@ -141,7 +141,8 @@ def delete_product(req,pid):
 
 def view_bookings(req):
     buy=Buy.objects.all()[::-1]
-    return render(req,'shop/view_bookings.html',{'buy':buy})
+    price=Cart.objects.all()
+    return render(req,'shop/view_bookings.html',{'buy':buy,'price':price})
 
 def admin_cancel_order(req,pid):
     data =Buy.objects.get(pk=pid)
