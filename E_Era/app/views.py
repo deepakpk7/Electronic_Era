@@ -177,12 +177,13 @@ def view_product(req,pid):
 def add_to_cart(req,pid):
     product=Product.objects.get(pk=pid)
     user=User.objects.get(username=req.session['user'])
+    price=product.offer_price
     try:
         cart=Cart.objects.get(user=user,product=product)
         cart.qty+=1
         cart.save()
     except:
-        data=Cart.objects.create(product=product,user=user,qty=1)
+        data=Cart.objects.create(product=product,user=user,qty=1,price=price)
         data.save()
     return redirect(view_cart)
 
@@ -198,14 +199,19 @@ def qty_in(req,cid):
     data.save()
     return redirect(view_cart)
 
-def qty_dec(req,cid):
-    data=Cart.objects.get(pk=cid)
-    data.qty-=1
-    data.save()
-    print(data.qty)
-    if data.qty==0:
+
+
+def qty_dec(req, cid):
+    data = Cart.objects.get(pk=cid)
+    if data.qty > 1:  # Ensure quantity doesn't go below 1
+        data.qty -= 1
+        data.price = data.qty * data.product.offer_price
+        data.save()
+    else:
+        # Optional: Remove the item if quantity reaches 0
         data.delete()
     return redirect(view_cart)
+
 
 
 def cart_pro_buy(req,cid):
