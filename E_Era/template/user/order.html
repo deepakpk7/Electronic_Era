@@ -44,25 +44,33 @@
     </header>
     <div class="container py-5">
         <div class="row g-4 align-items-center">
-            {% for i in bookings %}
-            <div class="col-lg-6 col-md-12">
-                <div class="cart-item d-flex align-items-center">
+            {% if bookings %}
+                {% for i in bookings %}
+                <div class="col-lg-6 col-md-12">
+                    <div class="cart-item d-flex align-items-center">
 
-                    <div class="cart-item-image">
-                        <img src="{{ i.product.img.url }}" alt="{{ i.product.name }}" class="img-fluid" style="max-height: 200px; object-fit: cover;">
-                    </div>
-                    <div class="cart-item-details ms-3">
-                        <h4 class="product-name">{{ i.product.name }}</h4>
-                        <p class="product-price">Price: ${{ i.price }}</p>
-                        <div class="quantity-controls d-flex align-items-center">
-                            <span class="qty">Qty: {{ i.qty }}</span>
+                        <div class="cart-item-image">
+                            <img src="{{ i.product.img.url }}" alt="{{ i.product.name }}" class="img-fluid" style="max-height: 200px; object-fit: cover;">
                         </div>
-                        <span class="qty">Ordered Date: {{ i.date }}</span><br>
-                        <a href="../cancel_order/{{i.id}}" class="btn btn-sm btn-danger">Cancel order</a>
+                        <div class="cart-item-details ms-3">
+                            <h4 class="product-name">{{ i.product.name }}</h4>
+                            <p class="product-price">Price: ${{ i.price }}</p>
+                            <div class="quantity-controls d-flex align-items-center">
+                                <span class="qty">Qty: {{ i.qty }}</span>
+                            </div>
+                            <span class="qty">Ordered Date: {{ i.date }}</span><br>
+                            <a href="../cancel_order/{{i.id}}" class="btn btn-sm btn-danger">Cancel order</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
+                {% else %}
+                <div class="col-12">
+                    <h1 class="text-center">Your Order is empty. Buy some items!</h1>
+                    <a href="user_home" class="btn btn-primary">Go to Home</a>
+                </div>
+            {% endif %}
+
         </div>
     </div>
     <footer class="bg-dark text-light pt-5 mt-3" style="font-size: 15px;">

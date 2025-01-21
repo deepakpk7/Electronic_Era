@@ -204,12 +204,11 @@ def qty_in(req,cid):
 
 def qty_dec(req, cid):
     data = Cart.objects.get(pk=cid)
-    if data.qty > 1:  # Ensure quantity doesn't go below 1
+    if data.qty > 1: 
         data.qty -= 1
         data.price = data.qty * data.product.offer_price
         data.save()
     else:
-        # Optional: Remove the item if quantity reaches 0
         data.delete()
     return redirect(view_cart)
 
@@ -279,3 +278,7 @@ def profile(req):
 def logout_view(req):
     s_logout(req)
     return redirect(s_login)
+
+# Payment Gateway
+
+
