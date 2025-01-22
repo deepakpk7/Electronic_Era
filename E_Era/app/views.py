@@ -47,8 +47,21 @@ def register(req):
         uname=req.POST['uname']
         email=req.POST['email']
         pswd=req.POST['pswd']
-        # send_mail('Eshop Registration', 'EShop account created sucssfully', settings.EMAIL_HOST_USER, [email])
+        send_mail('Welcome to ElectronicEra!',
+                  """
+                  Dear user,
 
+                    Thank you for registering with ElectronicEra! We are excited to have you on board.
+
+                    Your account has been successfully created, and you can start shopping for the best electronics in the market!
+
+                    Quote of the day: "The best way to predict the future is to invent it." – Alan Kay
+
+                    Feel free to contact us if you have any questions.
+
+                    Best regards,
+                    ElectronicEra Team
+                  """, settings.EMAIL_HOST_USER, [email])
         try:
             data=User.objects.create_user(first_name=uname,email=email,
                                         username=email,password=pswd)
@@ -276,6 +289,8 @@ def contact(req):
 def profile(req):
     user=User.objects.get(username=req.session['user'])
     return render(req,'user/profile.html',{'user':user})
+def about(req):
+    return render(req,'user/about.html')
 
 def logout_view(req):
     s_logout(req)
