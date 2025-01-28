@@ -208,14 +208,19 @@ def view_cart(req):
     data=Cart.objects.filter(user=user)
     return render(req,'user/cart.html',{'cart':data})
 
-def qty_in(req,cid):
-    data=Cart.objects.get(pk=cid)
-    data.qty+=1
-    data.price= data.qty*data.product.offer_price
-    data.save()
+def qty_in(req, cid):
+    try:
+        data = Cart.objects.get(pk=cid)
+        stock = int(data.product.stock)
+        if stock > data.qty:
+            data.qty += 1
+            data.price = data.qty * data.product.offer_price
+            data.save()
+        else:
+            messages.warning(req, "Cannot increase quantity. Stock unavailable.")
+    except Cart.DoesNotExist:
+        messages.error(req, "Cart item not found.")
     return redirect(view_cart)
-
-
 
 def qty_dec(req, cid):
     data = Cart.objects.get(pk=cid)
@@ -248,6 +253,10 @@ def pro_buy(req,pid):
     buy.save()
     return redirect(bookings)
 
+def address(req,pid):
+    user=User.objects.all()
+    cart=Cart.objects.all()
+    return render(req,'user/address.html',{'user':user,'cart':cart})
 
 def bookings(req):
     user=User.objects.get(username=req.session['user'])

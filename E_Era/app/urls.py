@@ -33,6 +33,7 @@ urlpatterns = [
     path('view_cart/',views.view_cart),
     path('clear_cart',views.clear_cart),
     path('order_payment',views.order_payment),
+    path('address/<pid>',views.address),
     
     
 ]
