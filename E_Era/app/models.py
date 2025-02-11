@@ -65,3 +65,13 @@ class Order(models.Model):
     
     def __str__(self):
         return f"{self.id}-{self.name}-{self.status}"
+    
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name=models.TextField()
+    address=models.TextField()
+    street=models.TextField()
+    city=models.TextField()
+    state=models.TextField()
+    pincode=models.IntegerField()
+    phone=models.IntegerField()

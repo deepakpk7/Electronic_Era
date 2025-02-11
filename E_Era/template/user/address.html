@@ -28,7 +28,7 @@
                         <li class="nav-item"><a href="../" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="view_cart" class="nav-link">Cart</a></li>
                         <li class="nav-item"><a href="order" class="nav-link">Orders</a></li>
-                        <li class="nav-item"><a href="profile" class="nav-link">Profile</a></li>
+                        <li class="nav-item"><a href="address" class="nav-link">Address</a></li>
                         <li class="nav-item"><a href="about" class="nav-link">About</a></li>
                         <li class="nav-item"><a href="contact" class="nav-link">Contact</a></li>
                         <li class="nav-item"><a href="logout" id="logout-btn" class="nav-link">Logout</a></li>
@@ -38,43 +38,63 @@
         </div>
     </header>
     
-    <div class="container order-container my-5 p-5" style="background-color: white;">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="product-summary">
-                    <img src="" class="product-img img-fluid" alt=""><br><br>
-                    <div class="product-details">
-                        <h5 class="product-title">Name : {{  }}</h5>
-                        <p class="product-price"><strong>Quantity:</strong> {{  }}</p>
-                        <p class="product-price text-success"><strong>Price:</strong> ₹{{  }}</p>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Address Form</h1>
+        <div class="form-container">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">House Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number:</label>
+                    <input type="number" id="phone" name="phone" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Landmark:</label>
+                    <input type="text" id="address" name="address" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="street" class="form-label">Street:</label>
+                    <input type="text" id="street" name="street" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City:</label>
+                    <input type="text" id="city" name="city" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State:</label>
+                    <input type="text" id="state" name="state" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pin" class="form-label">Pin Code:</label>
+                    <input type="number" id="pin" name="pin" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Saved Addresses</h2>
+        <div class="row justify-content-center">
+            {% for i in data %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Name: {{i.name}}</h4>
+                        <h5 class="card-text">Phone: {{i.phone}}</h5>
+                        <h5 class="card-text">Address: {{i.address}}</h5>
+                        <h5 class="card-text">Street: {{i.street}}</h5>
+                        <h5 class="card-text">Pin: {{i.pincode}}</h5>
+                        <h5 class="card-text">City: {{i.city}}</h5>
+                        <h5 class="card-text">State: {{i.state}}</h5>
+                        <a href="delete_address/{{i.pk}}" class="btn btn-danger w-100">Delete</a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-7">
-                <h2>Enter Your Shipping Address</h2>
-                <form id="order-form" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group mb-3">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="address">Address</label>
-                        <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="phone_number">Phone Number</label>
-                        <input type="text" id="phone_number" name="phone_number" class="form-control" pattern="\d{10}" maxlength="10" required title="Please enter a 10-digit phone number">
-                    </div>
-
-                    <div class="form-group text-center">
-                        <button  id="buy" class="btn btn-sm m-2" type="submit" class="btn btn-sm">Place Order</button>
-                    </div>
-                </form>
-            </div>
+            {% endfor %}
         </div>
     </div>
 

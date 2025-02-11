@@ -206,7 +206,8 @@ def add_to_cart(req,pid):
 def view_cart(req):
     user=User.objects.get(username=req.session['user'])
     data=Cart.objects.filter(user=user)
-    return render(req,'user/cart.html',{'cart':data})
+    data1=Address.objects.filter(user=user)
+    return render(req,'user/cart.html',{'cart':data,'data1':data1})
 
 def qty_in(req, cid):
     try:
@@ -253,15 +254,38 @@ def pro_buy(req,pid):
     buy.save()
     return redirect(bookings)
 
-def address(req,pid):
-    user=User.objects.all()
-    cart=Cart.objects.all()
-    return render(req,'user/address.html',{'user':user,'cart':cart})
+def address(req):
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data=Address.objects.filter(user=user)
+        if req.method=='POST':
+            user=User.objects.get(username=req.session['user'])
+            name=req.POST['name']
+            phn=req.POST['phone']
+            house=req.POST['address']
+            street=req.POST['street']
+            city=req.POST['city']
+            pin=req.POST['pin']
+            state=req.POST['state']
+            data=Address.objects.create(user=user,name=name,phone=phn,address=house,city=city,street=street,pincode=pin,state=state)
+            data.save()
+            return redirect(address)
+        else:
+            return render(req,"user/address.html",{'data':data})
+    else:
+        return redirect(s_login)
 
+def delete_address(req,pid):
+    if 'user' in req.session:
+        data=Address.objects.get(pk=pid)
+        data.delete()
+        return redirect(address)
+    
 def bookings(req):
     user=User.objects.get(username=req.session['user'])
     buy=Buy.objects.filter(user=user)[::-1]
-    return render(req,'user/order.html',{'bookings':buy})
+    add=Address.objects.filter(user=user)
+    return render(req,'user/order.html',{'bookings':buy,'add':add})
 
 
 
@@ -295,9 +319,7 @@ def contact(req):
     
     return render(req,'user/contact.html')
 
-def profile(req):
-    user=User.objects.get(username=req.session['user'])
-    return render(req,'user/profile.html',{'user':user})
+
 def about(req):
     return render(req,'user/about.html')
 

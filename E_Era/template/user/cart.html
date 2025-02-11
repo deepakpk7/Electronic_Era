@@ -27,7 +27,7 @@
                         <li class="nav-item"><a href="../" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="../view_cart" class="nav-link">Cart</a></li>
                         <li class="nav-item"><a href="../order" class="nav-link">Orders</a></li>
-                        <li class="nav-item"><a href="../profile" class="nav-link">Profile</a></li>
+                        <li class="nav-item"><a href="../address" class="nav-link">Address</a></li>
                         <li class="nav-item"><a href="../about" class="nav-link">About</a></li>
                         <li class="nav-item"><a href="../contact" class="nav-link">Contact</a></li>
                         <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
@@ -39,6 +39,12 @@
     </header>
     <div class="container py-5">
         <div class="row g-4 align-items-center">
+            <select name="address" id="address">
+                <h4>Select Address</h4>
+                {% for j in data1 %}
+                  <option value="{{i.pk}}">{{j.name}},{{j.phone}},{{j.address}},{{j.street}},{{j.pin}},{{j.state}}</option>
+                {% endfor %}
+            </select>
             {% if cart %}
                 {% for i in cart %}
                 <div class="col-lg-6 col-md-12">
@@ -54,7 +60,7 @@
                                 <a href="../qty_dec/{{i.pk}}" class="btn btn-outline-secondary btn-sm me-2">-</a>
                                 <span class="qty">Qty: {{ i.qty }}</span>
                                 <a href="../qty_in/{{i.pk}}" class="btn btn-outline-secondary btn-sm ms-2">+</a>
-                                <a href="../address/{{i.pk}}" class="btn btn-info" style="margin-left: 20px;">Buy</a>
+                                <a href="../cart_pro_buy/{{i.pk}}" class="btn btn-info" style="margin-left: 20px;">Buy</a>
                                 
                             </div>
                         </div>
