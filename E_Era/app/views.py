@@ -74,10 +74,6 @@ def register(req):
         return render(req,'register.html')
 
 
-
-
-
-
 def shop_home(req):
     if 'shop' in req.session:
         data=Product.objects.all()
@@ -157,7 +153,8 @@ def delete_product(req,pid):
 def view_bookings(req):
     buy=Buy.objects.all()[::-1]
     price=Cart.objects.all()
-    return render(req,'shop/view_bookings.html',{'buy':buy,'price':price})
+    add=Address.objects.all()
+    return render(req,'shop/view_bookings.html',{'buy':buy,'price':price,'add':add})
 
 def admin_cancel_order(req,pid):
     data =Buy.objects.get(pk=pid)

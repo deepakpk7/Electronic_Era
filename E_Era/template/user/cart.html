@@ -39,10 +39,10 @@
     </header>
     <div class="container py-5">
         <div class="row g-4 align-items-center">
-            <select name="address" id="address">
-                <h4>Select Address</h4>
+            <select name="address" id="address" >
+                <option>select address</option>
                 {% for j in data1 %}
-                  <option value="{{i.pk}}">{{j.name}},{{j.phone}},{{j.address}},{{j.street}},{{j.pin}},{{j.state}}</option>
+                  <option value="{{j.pk}}">{{j.name}},{{j.phone}},{{j.address}},{{j.street}},{{j.pin}},{{j.state}}</option>
                 {% endfor %}
             </select>
             {% if cart %}
@@ -97,7 +97,7 @@
     
     
 
-    <footer class="bg-dark text-light pt-5 mt-3" style="font-size: 15px;">
+    <footer class="bg-dark text-light pt-5 mt-3 fixed" style="font-size: 15px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
