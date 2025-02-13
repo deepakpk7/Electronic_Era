@@ -29,6 +29,7 @@ urlpatterns = [
     path('add_to_cart/<pid>',views.add_to_cart),
     path('cart_pro_buy/<cid>',views.cart_pro_buy),
     path('cancel_order/<pid>',views.cancel_order),
+    path('cancel_order/<int:pid>',views.cancel_order, name='cancel_order'),
     path('pro_buy/<pid>',views.pro_buy),
     path('order',views.bookings),
     path('view_cart/',views.view_cart),

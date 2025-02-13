@@ -9,6 +9,9 @@ from django.conf import settings
 import razorpay
 import json
 from django.views.decorators.csrf import csrf_exempt
+from datetime import timedelta
+from django.utils.timezone import now
+from datetime import datetime, timedelta
 
 # Create your views here.
 
@@ -286,11 +289,45 @@ def bookings(req):
 
 
 
-def cancel_order(req,pid):
-    data =Buy.objects.get(pk=pid)
-    data.delete()
-    return redirect(bookings) 
+# def cancel_order(req,pid):
+#     if 'user' in req.session:
+#         try:
+#             data = Buy.objects.get(pk=pid)
+#             if now() - data.date <= timedelta(seconds=20):
+#                 data.delete()
+#                 return redirect(bookings)
+#             else:
+#                 return render(req,'user/error.html',{'error' : 'Cannot cancell the order after 2 Days'})
+#         except Buy.DoesNotExist:
+#             return redirect(bookings)
+#     else:
+#         return redirect(user_home)
 
+def cancel_order(req, pid):
+    if 'user' in req.session:
+        try:
+            data = Buy.objects.get(pk=pid)
+            
+            # Ensure 'data.date' is a datetime object
+            if isinstance(data.date, datetime):
+                order_datetime = data.date
+            else:
+                # If 'data.date' is a date object, convert it to datetime at midnight
+                order_datetime = datetime.combine(data.date, datetime.min.time())
+
+            # Compare with the current datetime
+            if datetime.now() - order_datetime <= timedelta(days=10):
+                data.delete()
+                return redirect(bookings)
+            else:
+                return render(req, 'user/error.html', {'error': 'Cannot cancel the order after 2 Days'})
+        except Buy.DoesNotExist:
+            return redirect(bookings)
+    else:
+        return redirect(user_home)
+
+    
+    
 def clear_cart(req):
     data=Cart.objects.all()
     data.delete()
