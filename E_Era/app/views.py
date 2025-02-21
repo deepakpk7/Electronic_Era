@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta
 from django.utils.timezone import now
 from datetime import datetime, timedelta
+import re
 
 # Create your views here.
 
@@ -45,37 +46,91 @@ def s_logout(req):
     req.session.flush()
     return redirect(s_login)
 
+# def register(req):
+#     if req.method=='POST':
+#         uname=req.POST['uname']
+#         email=req.POST['email']
+#         pswd=req.POST['pswd']
+#         send_mail('Welcome to ElectronicEra!',
+#                   """
+#                   Dear user,
+
+#                     Thank you for registering with ElectronicEra! We are excited to have you on board.
+
+#                     Your account has been successfully created, and you can start shopping for the best electronics in the market!
+
+#                     Quote of the day: "The best way to predict the future is to invent it." – Alan Kay
+
+#                     Feel free to contact us if you have any questions.
+
+#                     Best regards,
+#                     ElectronicEra Team
+#                   """, settings.EMAIL_HOST_USER, [email])
+#         try:
+#             data=User.objects.create_user(first_name=uname,email=email,
+#                                         username=email,password=pswd)
+#             data.save()
+#         except:
+#             messages.warning(req, "Username or Email already exist")
+#             return redirect(register)
+#         return redirect(s_login)
+#     else:
+#         return render(req,'register.html')
+
 def register(req):
-    if req.method=='POST':
-        uname=req.POST['uname']
-        email=req.POST['email']
-        pswd=req.POST['pswd']
-        send_mail('Welcome to ElectronicEra!',
-                  """
-                  Dear user,
+    if req.method == 'POST':
+        uname = req.POST['uname'].strip()
+        email = req.POST['email'].strip()
+        pswd = req.POST['pswd'].strip()
 
-                    Thank you for registering with ElectronicEra! We are excited to have you on board.
-
-                    Your account has been successfully created, and you can start shopping for the best electronics in the market!
-
-                    Quote of the day: "The best way to predict the future is to invent it." – Alan Kay
-
-                    Feel free to contact us if you have any questions.
-
-                    Best regards,
-                    ElectronicEra Team
-                  """, settings.EMAIL_HOST_USER, [email])
-        try:
-            data=User.objects.create_user(first_name=uname,email=email,
-                                        username=email,password=pswd)
-            data.save()
-        except:
-            messages.warning(req, "Username or Email already exist")
+        # Email validation
+        email_pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        if not re.match(email_pattern, email):
+            messages.error(req, "Invalid email format.")
             return redirect(register)
-        return redirect(s_login)
-    else:
-        return render(req,'register.html')
+        # Password validation (Minimum 8 characters, at least one letter, one number, and one special character)
+        password_pattern = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+        if not re.match(password_pattern, pswd):
+            messages.error(req, "Password must be at least 8 characters long and include a letter, a number, and a special character.")
+            return redirect(register)
 
+        # Check if username or email already exists
+        if User.objects.filter(username=email).exists() or User.objects.filter(email=email).exists():
+            messages.warning(req, "Username or Email already exists.")
+            return redirect(register)
+
+        try:
+            user = User.objects.create_user(first_name=uname, email=email, username=email, password=pswd)
+            user.save()
+            send_mail(
+                'Welcome to ElectronicEra!',
+                """
+                Dear user,
+
+                Thank you for registering with ElectronicEra! We are excited to have you on board.
+
+                Your account has been successfully created, and you can start shopping for the best electronics in the market!
+
+                Quote of the day: "The best way to predict the future is to invent it." – Alan Kay
+
+                Feel free to contact us if you have any questions.
+
+                Best regards,
+                ElectronicEra Team
+                """,
+                settings.EMAIL_HOST_USER,
+                [email],
+                fail_silently=False
+            )
+
+            messages.success(req, "Registration successful! You can now log in.")
+            return redirect(s_login)
+
+        except Exception as e:
+            messages.error(req, f"An error occurred: {e}")
+            return redirect(register)
+
+    return render(req, 'register.html')
 
 def shop_home(req):
     if 'shop' in req.session:
