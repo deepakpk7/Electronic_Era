@@ -223,7 +223,7 @@ def admin_cancel_order(req,pid):
 
 # ---------------user---------------
 def user_home(req):
-    if 'user' in req.session:
+    # if 'user' in req.session:
         data=Product.objects.all()
         apple = Product.objects.filter(brand='Apple')
         hp=Product.objects.filter(brand='HP')
@@ -233,8 +233,8 @@ def user_home(req):
         print(lenovo)
         acer=Product.objects.filter(brand='acer')
         return render(req,'user/user_home.html',{'products':data,'apple': apple,'hp':hp,'dell':dell,'asus': asus,'lenovo':lenovo,'acer':acer})
-    else:
-        return redirect(s_login)
+    # else:
+    #     return redirect(s_login)
     
 def view_product(req,pid):
     if 'user' in req.session:
@@ -242,27 +242,31 @@ def view_product(req,pid):
         relate=Product.objects.all()
         return render(req,'user/view_product.html',{'product': data,'relate':relate})
     else:
-        return render(req,'user/home.html')
+        return redirect(s_login)
 
 
 def add_to_cart(req,pid):
-    product=Product.objects.get(pk=pid)
-    user=User.objects.get(username=req.session['user'])
-    price=product.offer_price
-    try:
-        cart=Cart.objects.get(user=user,product=product)
-        cart.qty+=1
-        cart.save()
-    except:
-        data=Cart.objects.create(product=product,user=user,qty=1,price=price)
-        data.save()
-    return redirect(view_cart)
-
+    if 'user' in req.session:
+        product=Product.objects.get(pk=pid)
+        user=User.objects.get(username=req.session['user'])
+        price=product.offer_price
+        try:
+            cart=Cart.objects.get(user=user,product=product)
+            cart.qty+=1
+            cart.save()
+        except:
+            data=Cart.objects.create(product=product,user=user,qty=1,price=price)
+            data.save()
+        return redirect(view_cart)
+    else:
+        return redirect(s_login)
 def view_cart(req):
-    user=User.objects.get(username=req.session['user'])
-    data=Cart.objects.filter(user=user)
-    data1=Address.objects.filter(user=user)
-    return render(req,'user/cart.html',{'cart':data,'data1':data1})
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data=Cart.objects.filter(user=user)
+        data1=Address.objects.filter(user=user)
+        return render(req,'user/cart.html',{'cart':data,'data1':data1})
+    return redirect(s_login)
 
 def qty_in(req, cid):
     try:
@@ -329,6 +333,27 @@ def address(req):
             return render(req,"user/address.html",{'data':data})
     else:
         return redirect(s_login)
+
+def update_username(req):
+    if req.method == "POST":
+        new_first_name = req.POST.get("name")
+        new_username = req.POST.get("username")
+
+        
+        if User.objects.filter(username=new_username).exclude(id=req.user.id).exists():
+            messages.error(req, "This username is already taken. Please choose another one.")
+            return redirect(address) 
+
+        
+        if new_first_name and new_username:
+            req.user.first_name = new_first_name
+            req.user.username = new_username
+            req.user.save()
+            messages.success(req, "Username updated successfully!")
+        else:
+            messages.error(req, "Username and Name cannot be empty.")
+    return redirect(address)
+
 
 def delete_address(req,pid):
     if 'user' in req.session:
