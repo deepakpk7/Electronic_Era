@@ -396,7 +396,7 @@ def cancel_order(req, pid):
                 order_datetime = datetime.combine(data.date, datetime.min.time())
 
             # Compare with the current datetime
-            if datetime.now() - order_datetime <= timedelta(days=10):
+            if datetime.now() - order_datetime <= timedelta(days=14):
                 data.delete()
                 return redirect(bookings)
             else:
